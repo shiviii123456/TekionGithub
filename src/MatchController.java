@@ -18,7 +18,7 @@ public class MatchController {
 
     }
 
-    //wickets Thread target
+
     public void gameLogic(Teams batting, int over, int target) throws InterruptedException {
         System.out.println(batting.getName() + " scores : ");
         int score = 0;
@@ -30,13 +30,13 @@ public class MatchController {
                 run = (int) (Math.random() * 8);
                 if (run == 7) {
                     wickets++;
-//                    batting.setWickets(wickets);
+
                     System.out.print("W" + " ");
                     continue;
                 }
                 System.out.print(run + " ");
                 score += run;
-//                batting.setScore(score);
+
                 if (target!=0 && score > target) {
                     System.out.println();
                     return;
