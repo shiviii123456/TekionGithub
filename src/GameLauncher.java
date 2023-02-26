@@ -69,10 +69,12 @@ public class GameLauncher {
             bowling = team1;
         }
 
-        match.matching(batting, bowling, over, 0);
+        match.matchSimulator(batting, bowling, over, 0);
 
-        match.matching(bowling, batting, over, batting.getScore() + 1);
+        match.matchSimulator(bowling, batting, over, batting.getScore() + 1);
 
-        ScoreBoard.scoreBoard(team1, team2);
+        ScoreBoard.teamScore(team1);
+        ScoreBoard.teamScore(team2);
+        ScoreBoard.scoreBoard(team1,team2);
     }
 }

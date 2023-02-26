@@ -1,18 +1,23 @@
-public class ScoreBoard {
+import java.util.ArrayList;
 
-    public static void overScore(Teams team1, Teams team2, int[] runPerBall, int over) {
-        System.out.println("---------------------------------Score Of " + team1.getName() + " in " + over + " over " + "-------------------------------------------");
-        int teamScore = 0;
-        for (int run : runPerBall) {
-            if (run > 0) {
-                System.out.print(run + " ");
-                teamScore += run;
-            } else if (run == -1)
-                System.out.print("W" + " ");
+public class ScoreBoard {
+    public static void teamScore(Teams team) {
+        System.out.println("---------------------------------Score Of " + team.getName() + "-------------------------------------------------");
+        int c = 1;
+        for (ArrayList<Integer> over : team.getScorePerOver()) {
+            System.out.println("In Over : " + c);
+            for (int run : over) {
+                if (run == 7)
+                    System.out.print("W ");
+                else
+                    System.out.print(run + " ");
+            }
+            c++;
+            System.out.println();
+            System.out.println();
         }
-        System.out.println();
-        for (Player p : team1.getPlayers()) {
-            if (p.getTotalBattingScore() > 0) {
+        for (Player p : team.getPlayers()) {
+            if (p.getTotalBattingScore() > 0 || p.getTotalBallPlayed()>0) {
                 System.out.println("Runs made by " + p.getName() + " : " + p.getTotalBattingScore());
                 System.out.println("Total 4s made by " + p.getName() + " : " + p.getTotal4sScored());
                 System.out.println("Total 6s made by " + p.getName() + " : " + p.getTotal6sScored());
@@ -20,10 +25,10 @@ public class ScoreBoard {
                 System.out.println("--------------------------------------------------------------");
             }
         }
-        team1.setScore(team1.getScore() + teamScore);
     }
 
     public static void scoreBoard(Teams team1, Teams team2) {
+
         System.out.println("--------------------------------------------------Match Results---------------------------------------------------");
         System.out.println("Total score of " + team1.getName() + " " + team1.getScore() + " runs at wickets " + team1.getWickets() + "/10");
         System.out.println("Total score of " + team2.getName() + " " + team2.getScore() + " runs at wickets " + team2.getWickets() + "/10");

@@ -2,10 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MatchController {
-    int totalScore;
-    int ballPlayed;
-    int total4s;
-    int total6s;
     Scanner sc = new Scanner(System.in);
 
     public Teams toss(Teams team1, Teams team2) {
@@ -32,87 +28,90 @@ public class MatchController {
         }
     }
 
-    public void matching(Teams team1, Teams team2, int overSize, int target) throws InterruptedException {
-        total4s = 0;
-        total6s = 0;
-        ballPlayed = 0;
-        totalScore = 0;
+    public void matchSimulator(Teams team1, Teams team2, int overSize, int target) {
+        int total4s = 0;
+        int total6s = 0;
+        int ballPlayed = 0;
+        int totalScore = 0;
         int wickets = 0;
         Double run;
+        int teamScore=0;
+
         int size = team1.getPlayers().size();  // size of the team
         ArrayList<Player> team1Player = team1.getPlayers();
+        ArrayList<ArrayList<Integer>> scorePerOver=new ArrayList<>();
+        Player p = team1Player.get(wickets);
 
         for (int over = 0; over < overSize && wickets < size - 1; over++) {
-            Player p = null;
-            int[] runPerBall = new int[6];
+            ArrayList<Integer> runPerOver=new ArrayList<>();
             for (int ball = 0; ball < 6 && wickets < size - 1; ball++) {
-                p = team1Player.get(wickets);
                 run = Math.random();
-                int currScore = totalScore;
-                if (playerOut(p, run, runPerBall)) {
+                int runPerBall = runsMadeByPlayer(p, run);
+                ballPlayed++;
+                runPerOver.add(runPerBall);
+                teamScore+=runPerBall;
+//               System.out.println(runPerBall+"  "+p.getName());
+                if (runPerBall == 7) {
                     wickets++;
-                    p.setTotal4sScored(total4s);
-                    p.setTotal6sScored(total6s);
-                    p.setTotalBattingScore(totalScore);
-                    p.setTotalBallPlayed(ballPlayed);
-                    runPerBall[ball] = -1;
+                    setPlayerData(p,total4s,total6s,ballPlayed,totalScore);
                     total4s = 0;
                     total6s = 0;
                     ballPlayed = 0;
                     totalScore = 0;
                     p = team1Player.get(wickets);
                 } else {
-                    runPerBall[ball] = totalScore - currScore;
+                    if (runPerBall == 4) total4s++;
+                    else if (runPerBall == 6) total6s++;
+                    totalScore += runPerBall;
                 }
             }
-            if (p != null) {
-                p.setTotal4sScored(total4s);
-                p.setTotal6sScored(total6s);
-                p.setTotalBattingScore(totalScore);
-                p.setTotalBallPlayed(ballPlayed);
-            }
-            ScoreBoard.overScore(team1, team2, runPerBall, over + 1);
+            setPlayerData(p,total4s,total6s,ballPlayed,totalScore);
+            scorePerOver.add(runPerOver);
         }
+        team1.setScorePerOver(scorePerOver);
         team1.setWickets(wickets);
+        team1.setScore(teamScore);
     }
 
-    public boolean runsMadeByPlayer(Player p, Double run, int[] runPerBall) {
-        ballPlayed++;
+    public int runsMadeByPlayer(Player p, Double run) {
         if (p.getPlayerRole().equals("BatsMan")) {
             if (run >= 0.0 && run <= 0.1) {
-                totalScore += 1;
+                return 1;
             } else if (run > 0.1 && run <= 0.2) {
-                totalScore += 2;
+                return 2;
             } else if (run > 0.2 && run <= 0.4) {
-                totalScore += 3;
+                return 3;
             } else if (run > 0.4 && run <= 0.5) {
-                return true;
+                return 7;
             } else if (run > 0.5 && run <= 0.8) {
-                total4s++;
-                totalScore += 4;
+                return 4;
             } else if (run > 0.8 && run <= 0.9) {
-                total6s++;
-                totalScore += 6;
+                return 6;
             } else {
-                totalScore += 5;
+                return 5;
             }
         } else {
             if (run >= 0.0 && run <= 0.1) {
-                totalScore += 1;
+                return 1;
             } else if (run > 0.1 && run <= 0.3) {
-                totalScore += 2;
+                return 2;
             } else if (run > 0.3 && run <= 0.45) {
-                totalScore += 3;
+                return 3;
             } else if (run > 0.45 && run <= 0.5) {
-                totalScore += 4;
+                return 4;
             } else if (run > 0.5 && run <= 0.85) {
-                return true;
+                return 7;
             } else if (run > 0.85 && run <= 0.9) {
-                totalScore += 6;
+                return 6;
             } else {
-                totalScore += 5;
+                return 5;
             }
         }
-        return false;
+    }
+    public void setPlayerData(Player p,int total4s,int total6s,int ballPlayed,int totalScore){
+        p.setTotal4sScored(total4s);
+        p.setTotal6sScored(total6s);
+        p.setTotalBattingScore(totalScore);
+        p.setTotalBallPlayed(ballPlayed);
     }
 }

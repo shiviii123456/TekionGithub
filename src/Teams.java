@@ -5,6 +5,7 @@ public class Teams {
     private String name;
     private int score;
     private int wickets;
+    ArrayList<ArrayList<Integer>> scorePerOver;
     ArrayList<Player> players = new ArrayList<>();
     public void setTeamId(String teamId) {
         this.teamId = teamId;
@@ -33,5 +34,11 @@ public class Teams {
     }
     public ArrayList<Player> getPlayers() {
         return this.players;
+    }
+    public void setScorePerOver(ArrayList<ArrayList<Integer>> scorePerOver){
+        this.scorePerOver=scorePerOver;
+    }
+    public ArrayList<ArrayList<Integer>> getScorePerOver(){
+        return this.scorePerOver;
     }
 }
