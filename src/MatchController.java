@@ -76,7 +76,7 @@ public class MatchController {
         team1.setWickets(wickets);
     }
 
-    public boolean playerOut(Player p, Double run, int[] runPerBall) {
+    public boolean runsMadeByPlayer(Player p, Double run, int[] runPerBall) {
         ballPlayed++;
         if (p.getPlayerRole().equals("BatsMan")) {
             if (run >= 0.0 && run <= 0.1) {
