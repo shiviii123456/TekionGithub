@@ -49,7 +49,6 @@ public class MatchController {
                 int runPerBall = runsMadeByPlayer(p, run);
                 ballPlayed++;
                 runPerOver.add(runPerBall);
-                teamScore+=runPerBall;
 //               System.out.println(runPerBall+"  "+p.getName());
                 if (runPerBall == 7) {
                     wickets++;
@@ -63,6 +62,7 @@ public class MatchController {
                     if (runPerBall == 4) total4s++;
                     else if (runPerBall == 6) total6s++;
                     totalScore += runPerBall;
+                    teamScore+=runPerBall;
                 }
             }
             setPlayerData(p,total4s,total6s,ballPlayed,totalScore);
@@ -74,7 +74,8 @@ public class MatchController {
     }
 
     public int runsMadeByPlayer(Player p, Double run) {
-        if (p.getPlayerRole().equals("BatsMan")) {
+            PlayerRole[] playerRole=PlayerRole.values();
+        if (p.getPlayerRole().equals(playerRole[0])) {
             if (run >= 0.0 && run <= 0.1) {
                 return 1;
             } else if (run > 0.1 && run <= 0.2) {

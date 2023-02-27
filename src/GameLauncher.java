@@ -19,18 +19,19 @@ public class GameLauncher {
         Teams team2 = new Teams();
         team2.setName(name2);
 
+        PlayerRole[] playerRole=PlayerRole.values();
         Player p1 = new Player();
         p1.setName("Rohit Sharma");
-        p1.setPlayerRole("BatsMan");
+        p1.setPlayerRole(playerRole[0]);
         Player p2 = new Player();
         p2.setName("Virat Kohli");
-        p2.setPlayerRole("BatsMan");
+        p2.setPlayerRole(playerRole[0]);
         Player p3 = new Player();
         p3.setName("Ravindra Jadeja");
-        p3.setPlayerRole("Bowler");
+        p3.setPlayerRole(playerRole[1]);
         Player p4 = new Player();
         p4.setName("Jasprit Bumbrah");
-        p4.setPlayerRole("Bowler");
+        p4.setPlayerRole(playerRole[1]);
 
         ArrayList<Player> team1Players = new ArrayList<>();
         team1Players.add(p1);
@@ -41,16 +42,16 @@ public class GameLauncher {
 
         Player p5 = new Player();
         p5.setName("Mohammad Yousuf");
-        p5.setPlayerRole("BatsMan");
+        p5.setPlayerRole(playerRole[0]);
         Player p6 = new Player();
         p6.setName("Shahid Afridi");
-        p6.setPlayerRole("BatsMan");
+        p6.setPlayerRole(playerRole[0]);
         Player p7 = new Player();
         p7.setName("Shoaib Akhtar");
-        p7.setPlayerRole("Bowler");
+        p7.setPlayerRole(playerRole[1]);
         Player p8 = new Player();
         p8.setName("Imran Khan");
-        p8.setPlayerRole("Bowler");
+        p8.setPlayerRole(playerRole[1]);
 
         ArrayList<Player> team2Players = new ArrayList<>();
         team2Players.add(p5);

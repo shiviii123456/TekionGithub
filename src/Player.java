@@ -2,7 +2,7 @@ public class Player {
     private String id;
     private String name;
     private String teamId;
-    private String playerRole;
+    private PlayerRole playerRole;
     private int totalBallPlayed, total4sScored, total6sScored;
     private int totalBattingScore, bowlingWickets;
 
@@ -70,11 +70,11 @@ public class Player {
         return this.bowlingWickets;
     }
 
-    public void setPlayerRole(String playerRole) {
+    public void setPlayerRole(PlayerRole playerRole) {
         this.playerRole = playerRole;
     }
 
-    public String getPlayerRole() {
+    public PlayerRole getPlayerRole() {
         return this.playerRole;
     }
 }
