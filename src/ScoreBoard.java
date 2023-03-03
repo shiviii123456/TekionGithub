@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-
+import java.util.*;
 public class ScoreBoard {
-    public static void teamScore(Teams team) {
+    public static void teamScore(Team team) {
         System.out.println("---------------------------------Score Of " + team.getName() + "-------------------------------------------------");
         int c = 1;
-        for (ArrayList<Integer> over : team.getScorePerOver()) {
+        for (List<Integer> over : team.getScorePerOver()) {
             System.out.println("In Over : " + c);
             for (int run : over) {
                 if (run == 7)
@@ -17,7 +16,7 @@ public class ScoreBoard {
             System.out.println();
         }
         for (Player p : team.getPlayers()) {
-            if (p.getTotalBattingScore() > 0 || p.getTotalBallPlayed()>0) {
+            if (p.getTotalBattingScore() > 0 || p.getTotalBallPlayed() > 0) {
                 System.out.println("Runs made by " + p.getName() + " : " + p.getTotalBattingScore());
                 System.out.println("Total 4s made by " + p.getName() + " : " + p.getTotal4sScored());
                 System.out.println("Total 6s made by " + p.getName() + " : " + p.getTotal6sScored());
@@ -27,7 +26,7 @@ public class ScoreBoard {
         }
     }
 
-    public static void scoreBoard(Teams team1, Teams team2) {
+    public static void scoreBoard(Team team1, Team team2) {
 
         System.out.println("--------------------------------------------------Match Results---------------------------------------------------");
         System.out.println("Total score of " + team1.getName() + " " + team1.getScore() + " runs at wickets " + team1.getWickets() + "/10");

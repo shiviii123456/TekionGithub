@@ -1,45 +1,31 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.util.*;
 public class MatchController {
     Scanner sc = new Scanner(System.in);
 
-    public Teams toss(Teams team1, Teams team2) {
+    public Team toss(Team team1, Team team2) {
         int toss = (int) (Math.random() * 2);
         System.out.println(toss == 0 ? team1.getName() + " has won the toss " : team2.getName() + " has won the toss ");
         System.out.println("Enter 1 to do the batting and 2 for bowling :");
         int decision = sc.nextInt();
-        if (toss == 0) {
-            if (decision == 1) {
-                System.out.println(team1.getName() + " decided to do batting");
-                return team1;
-            } else {
-                System.out.println(team1.getName() + " decided to do bowling");
-                return team2;
-            }
-        } else {
-            if (decision == 1) {
-                System.out.println(team2.getName() + " decided to do batting");
-                return team2;
-            } else {
-                System.out.println(team2.getName() + " decided to do bowling");
-                return team1;
-            }
-        }
+        String result = (decision == 1) ? "batting" : "bowling";
+        System.out.println((toss==0?(team1.getName()):(team2.getName()))+" decided to do "+result);
+        return ((toss==0 && decision==1) ||(toss==1 && decision==0)) ? team1:team2;
     }
 
-    public void matchSimulator(Teams team1, Teams team2, int overSize, int target) {
+    public void matchSimulator(Team team1, Team team2, int overSize, int target) {
         int total4s = 0;
         int total6s = 0;
         int ballPlayed = 0;
         int totalScore = 0;
         int wickets = 0;
-        Double run;
+        double run;
         int teamScore=0;
 
         int size = team1.getPlayers().size();  // size of the team
-        ArrayList<Player> team1Player = team1.getPlayers();
-        ArrayList<ArrayList<Integer>> scorePerOver=new ArrayList<>();
+        List<Player> team1Player = team1.getPlayers();
+        List<List<Integer>> scorePerOver=new ArrayList<>();
         Player p = team1Player.get(wickets);
 
         for (int over = 0; over < overSize && wickets < size - 1; over++) {
@@ -49,10 +35,9 @@ public class MatchController {
                 int runPerBall = runsMadeByPlayer(p, run);
                 ballPlayed++;
                 runPerOver.add(runPerBall);
-//               System.out.println(runPerBall+"  "+p.getName());
                 if (runPerBall == 7) {
                     wickets++;
-                    setPlayerData(p,total4s,total6s,ballPlayed,totalScore);
+                    p.updateScore(total4s,total6s,ballPlayed,totalScore);
                     total4s = 0;
                     total6s = 0;
                     ballPlayed = 0;
@@ -65,17 +50,15 @@ public class MatchController {
                     teamScore+=runPerBall;
                 }
             }
-            setPlayerData(p,total4s,total6s,ballPlayed,totalScore);
+            p.updateScore(total4s,total6s,ballPlayed,totalScore);
             scorePerOver.add(runPerOver);
         }
         team1.setScorePerOver(scorePerOver);
         team1.setWickets(wickets);
         team1.setScore(teamScore);
     }
-
     public int runsMadeByPlayer(Player p, Double run) {
-            PlayerRole[] playerRole=PlayerRole.values();
-        if (p.getPlayerRole().equals(playerRole[0])) {
+        if (p.getPlayerRole()==PlayerRole.BATSMAN) {
             if (run >= 0.0 && run <= 0.1) {
                 return 1;
             } else if (run > 0.1 && run <= 0.2) {
@@ -108,11 +91,5 @@ public class MatchController {
                 return 5;
             }
         }
-    }
-    public void setPlayerData(Player p,int total4s,int total6s,int ballPlayed,int totalScore){
-        p.setTotal4sScored(total4s);
-        p.setTotal6sScored(total6s);
-        p.setTotalBattingScore(totalScore);
-        p.setTotalBallPlayed(ballPlayed);
     }
 }

@@ -77,4 +77,11 @@ public class Player {
     public PlayerRole getPlayerRole() {
         return this.playerRole;
     }
+
+    public void updateScore(int total4s,int total6s,int ballPlayed,int totalScore) {
+        this.total4sScored = total4s;
+        this.total6sScored = total6s;
+        this.totalBallPlayed = ballPlayed;
+        this.totalBattingScore = totalScore;
+    }
 }

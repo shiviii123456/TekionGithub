@@ -1,12 +1,12 @@
 import java.util.ArrayList;
-
-public class Teams {
+import java.util.*;
+public class Team {
     private String teamId;
     private String name;
     private int score;
     private int wickets;
-    ArrayList<ArrayList<Integer>> scorePerOver;
-    ArrayList<Player> players = new ArrayList<>();
+    List<List<Integer>> scorePerOver;
+    List<Player> players = new ArrayList<>();
     public void setTeamId(String teamId) {
         this.teamId = teamId;
     }
@@ -32,13 +32,13 @@ public class Teams {
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
     }
-    public void setScorePerOver(ArrayList<ArrayList<Integer>> scorePerOver){
+    public void setScorePerOver(List<List<Integer>> scorePerOver){
         this.scorePerOver=scorePerOver;
     }
-    public ArrayList<ArrayList<Integer>> getScorePerOver(){
+    public List<List<Integer>> getScorePerOver(){
         return this.scorePerOver;
     }
 }

@@ -13,25 +13,24 @@ public class GameLauncher {
         String name1 = sc.nextLine();
         System.out.println("Enter the name of Team2 ");
         String name2 = sc.nextLine();
-        Teams team1 = new Teams();
+        Team team1 = new Team();
         team1.setName(name1);
 
-        Teams team2 = new Teams();
+        Team team2 = new Team();
         team2.setName(name2);
 
-        PlayerRole[] playerRole=PlayerRole.values();
         Player p1 = new Player();
         p1.setName("Rohit Sharma");
-        p1.setPlayerRole(playerRole[0]);
+        p1.setPlayerRole(PlayerRole.BATSMAN);
         Player p2 = new Player();
         p2.setName("Virat Kohli");
-        p2.setPlayerRole(playerRole[0]);
+        p2.setPlayerRole(PlayerRole.BATSMAN);
         Player p3 = new Player();
         p3.setName("Ravindra Jadeja");
-        p3.setPlayerRole(playerRole[1]);
+        p3.setPlayerRole(PlayerRole.BOWLER);
         Player p4 = new Player();
         p4.setName("Jasprit Bumbrah");
-        p4.setPlayerRole(playerRole[1]);
+        p4.setPlayerRole(PlayerRole.BOWLER);
 
         ArrayList<Player> team1Players = new ArrayList<>();
         team1Players.add(p1);
@@ -42,16 +41,16 @@ public class GameLauncher {
 
         Player p5 = new Player();
         p5.setName("Mohammad Yousuf");
-        p5.setPlayerRole(playerRole[0]);
+        p5.setPlayerRole(PlayerRole.BATSMAN);
         Player p6 = new Player();
         p6.setName("Shahid Afridi");
-        p6.setPlayerRole(playerRole[0]);
+        p6.setPlayerRole(PlayerRole.BATSMAN);
         Player p7 = new Player();
         p7.setName("Shoaib Akhtar");
-        p7.setPlayerRole(playerRole[1]);
+        p7.setPlayerRole(PlayerRole.BOWLER);
         Player p8 = new Player();
         p8.setName("Imran Khan");
-        p8.setPlayerRole(playerRole[1]);
+        p8.setPlayerRole(PlayerRole.BOWLER);
 
         ArrayList<Player> team2Players = new ArrayList<>();
         team2Players.add(p5);
@@ -61,8 +60,8 @@ public class GameLauncher {
         team2.setPlayers(team2Players);
 
         MatchController match = new MatchController();
-        Teams batting = match.toss(team1, team2);
-        Teams bowling;
+        Team batting = match.toss(team1, team2);
+        Team bowling;
 
         if (batting == team1) {
             bowling = team2;
