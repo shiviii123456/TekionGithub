@@ -1,0 +1,22 @@
+plugins {
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.mongodb:mongodb-driver-sync:4.9.0'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
