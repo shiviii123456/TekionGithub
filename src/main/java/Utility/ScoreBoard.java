@@ -26,9 +26,9 @@ public class ScoreBoard {
         String team2Id=matchDao.findMatchById(matchId).getTeam2Id();
         Team team1=teamDao.getTeam(team1Id);
         Team team2=teamDao.getTeam(team2Id);
-        scorePerOver(team1);
-        scorePerOver(team2);
         scoreBoard(team1,team2);
+        scorePerOver(team1.getTeamStatus().equals(TeamStatus.WIN.name())?(team1):(team2));
+        scorePerOver(team2.getTeamStatus().equals(TeamStatus.WIN.name())?(team2):(team1));
     }
     public void scoreBoard(Team team1, Team team2) {
         System.out.println("************************************ Match Result ************************************");
