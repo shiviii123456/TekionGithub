@@ -72,8 +72,7 @@ public class MatchService {
         }
     }
 
-    public void startMatch(Match match) {
-        System.out.println("******************************** Match Started ********************************");
+    public ResponseEntity<Object> startMatch(Match match) {
         Team team1 = teamRepo.findById(match.getTeam1Id()).get();
         Team team2 = teamRepo.findById(match.getTeam2Id()).get();
         Team batting = toss(team1, team2);
@@ -88,6 +87,7 @@ public class MatchService {
         matchRepo.save(match);
         scoreBoardService.matchResult(match, match.getScoreboard1Id(), match.getScoreboard2Id());
         matchRepo.save(match);
+        return ResponseEntity.ok("Match Started");
     }
 
     public Team toss(Team team1, Team team2) {

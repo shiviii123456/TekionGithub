@@ -38,8 +38,12 @@ public class TeamService {
         if (teamId == null || playerId == null || teamId.isEmpty() || playerId.isEmpty())
             return ResponseEntity.badRequest().body("TeamId and PlayerId cannot be null and Empty");
         try {
-            if (!playerRepo.findById(playerId).isPresent())
+            Optional<Player> playerData=playerRepo.findById(playerId);
+            if (!playerData.isPresent())
                 return ResponseEntity.badRequest().body("Player with Id is not found");
+            Player player=playerData.get();
+            if(player.getTeamId()!=null)
+                return ResponseEntity.badRequest().body("Player is already added to the another team");
             Optional<Team> teamData = teamRepo.findById(teamId);
             if (!teamData.isPresent()) return ResponseEntity.badRequest().body("Team with Id is not found");
             Team team=teamData.get();
@@ -52,6 +56,8 @@ public class TeamService {
             }
             teamPlayer.add(playerId);
             team.setPlayers(teamPlayer);
+            player.setTeamId(teamId);
+            playerRepo.save(player);
             teamRepo.save(team);
             return ResponseEntity.ok(team);
         } catch (Exception e) {

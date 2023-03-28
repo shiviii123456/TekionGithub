@@ -17,6 +17,7 @@ public class Player {
     private String playerId;
     private String playerName;
     private PlayerRole playerRole;
+    private String teamId;
     private int totalBallPlayed, total4sScored, total6sScored;
     private int totalBattingScore;
 }

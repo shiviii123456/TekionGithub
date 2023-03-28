@@ -18,13 +18,7 @@ public class MatchController {
 
     @PostMapping("/startMatch")
     public  ResponseEntity<Object> startMatch(@RequestBody Match match){
-        System.out.println("Match started");
-        try{
-           matchService.startMatch(match);
-           return ResponseEntity.ok("Match Started");
-        }catch (Exception e){
-           return ResponseEntity.badRequest().body("Failed to start the match");
-        }
+         return   matchService.startMatch(match);
     }
     @PostMapping("/add")
     public ResponseEntity<Object> addMatch(@RequestBody Match matchData){
